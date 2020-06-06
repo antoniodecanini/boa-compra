@@ -1,55 +1,79 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, TextInput} from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, FlatList} from 'react-native';
 
-import Styles from './styles';
+import styles from './styles';
+import data from '../../assets/data.json';
 
 function ShoppingList() {
   const [item, onChangeItem] = React.useState('');
-  const [qtd, onChangeQtd] = React.useState('');
-  const [price, onChangePrice] = React.useState('R$ ');
+  const [amount, onChangeQtd] = React.useState('');
+  const [price, onChangePrice] = React.useState('');
 
-  const totalPrice = price.split('R$ ');
-
-  function newItem() {
-    
-  }
-
-  return (
-    <View style={ Styles.viewStyle }>
-      <Text style={Styles.txtCreatedAt}>Lista criada em: </Text>
-      
-      <View style={ Styles.viewList }>
+  function RenderItem({ item, amount, price }) {
+    return (
+      <View style={styles.vwItemList}>
         <TextInput
-          style = {[ Styles.input, Styles.itemField ]}
+          style = {[ styles.input, styles.itemField ]}
           onChangeText = { text => onChangeItem(text) }
           value = { item }
-          placeholder = "Item"
+          // placeholder = "Item"
         />
 
         <TextInput
-          style = {[ Styles.input, Styles.qtdField ]}
+          style = {[ styles.input, styles.qtdField ]}
           onChangeText = { text => onChangeQtd(text) }
-          value = { qtd }
+          value = { amount }
           keyboardType = "decimal-pad"
           placeholder = "Qtd"
         />
 
         <TextInput
-          style = {[ Styles.input, Styles.priceField ]}
+          style = {[ styles.input, styles.priceField ]}
           onChangeText = { text => onChangePrice(text) }
           value = { price }
           keyboardType = "decimal-pad"
+          placeholder = "R$"
+        />
+
+        <TouchableOpacity
+          style = { styles.btnRemove }
+        >
+          <Text style={ styles.txtRemove }>X</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  function newItem() {
+    data[0].items.push({ "itemName": "teste", "amount": "5", "price": "55.62" })
+    console.log(data[0].items)
+  }
+
+  return (
+    <View style={ styles.viewStyle }>
+      <Text style={styles.txtCreatedAt}>Lista criada em: </Text>
+      
+      <View style={ styles.viewList }>
+        <FlatList
+          style = { styles.flatList }
+          data = { data[1].items }
+          renderItem = { ({ item }) => <RenderItem item={item.itemName} amount={item.amount} price={item.price} /> }
         />
       </View>
 
       <TouchableOpacity
-        style = { Styles.btnNewItem }
+        style = { styles.btnNewItem }
         onPress = { () => newItem() }
       >
-        <Text style={ Styles.txtBtn }>Novo item</Text>
+        <Text style={ styles.txtBtn }>Novo item</Text>
       </TouchableOpacity>
       
-  <Text style={ Styles.txtTotal }>Total da compra: R$ {totalPrice}</Text>
+      <Text style={ styles.txtTotal }>
+        Total da compra: {Intl.NumberFormat('pt-BR', {
+          style: 'currency',
+          currency: 'BRL',
+        }).format(54)}
+      </Text>
     </View>
   );
 }

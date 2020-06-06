@@ -1,0 +1,55 @@
+[
+  {
+    "id": "1",
+    "name": "Açai atacadista",
+    "createdAt": "18/05/2020",
+    "items": [
+      {
+        "itemName": "Cebola",
+        "amount": "15",
+        "price": "2,45"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "name": "Sonda Jaçanã",
+    "createdAt": "15/02/2020",
+    "items": [
+      {
+        "itemName": "Banana",
+        "amount": "15",
+        "price": "2,45"
+      },
+      {
+        "itemName": "Alface",
+        "amount": "2",
+        "price": "2,45"
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "name": "Leroy Merlin",
+    "createdAt": "21/04/2020",
+    "items": [
+      {
+        "itemName": "Tomate",
+        "amount": "15",
+        "price": "2,45"
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "name": "C&C",
+    "createdAt": "21/05/2020",
+    "items": [
+      {
+        "itemName": "Alho",
+        "amount": "15",
+        "price": "2,45"
+      }
+    ]
+  }
+]

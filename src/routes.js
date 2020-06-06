@@ -10,17 +10,20 @@ const AppStack = createStackNavigator();
 function Routes() {
   return (
     <NavigationContainer>
-      <AppStack.Navigator initialRouteName="Home">
-      <AppStack.Screen
+      <AppStack.Navigator 
+        initialRouteName="Home"
+        screenOptions = {{
+          headerShown: false,
+        }}
+      >
+        <AppStack.Screen
           name = "Home"
           component = { HomeScreen }
-          options = {{ title: 'Listas de Compras' }}
         />
 
         <AppStack.Screen
           name = "ShoppingList"
           component = { ShoppingList }
-          options = {{ title: '#Nome da lista selecionada#' }}
         />
       </AppStack.Navigator>
     </NavigationContainer>

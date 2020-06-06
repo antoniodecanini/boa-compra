@@ -17,10 +17,18 @@ export default StyleSheet.create({
   },
 
   viewList: {
+    marginTop: 10,
+  },
+
+  flatList: {
+    flexGrow: 0,
+  },
+
+  vwItemList: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 10,
     width: '100%',
+    marginTop: 5,
   },
 
   input: {
@@ -29,15 +37,29 @@ export default StyleSheet.create({
   },
 
   itemField: {
-    width: '69%'
+    width: '59%',
   },
 
   qtdField: {
-    width: '10%'
+    width: '10%',
   },
 
   priceField: {
-    width: '18%'
+    width: '18%',
+  },
+
+  btnRemove: {
+    width: '5%',
+    backgroundColor: 'red',
+    justifyContent: 'center',
+    borderRadius: 50,
+  },
+
+  txtRemove: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 25,
+    textAlign: 'center',
   },
 
   btnNewItem: {

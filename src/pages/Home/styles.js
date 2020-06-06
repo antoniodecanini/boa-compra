@@ -11,6 +11,10 @@ export default StyleSheet.create({
     paddingTop: 16,
   },
 
+  linearGradient: {
+    flex: 1,
+  },
+
   header: {
     flexDirection: 'row',
     width: '100%',
@@ -34,6 +38,10 @@ export default StyleSheet.create({
   
   viewLists: {
     marginTop: 6,
+  },
+
+  flatList: {
+    flexGrow: 0,
   },
 
   btnList: {
