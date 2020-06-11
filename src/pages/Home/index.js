@@ -5,14 +5,44 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import styles from './styles';
 import data from '../../assets/data.json';
+import getRealm from '../../services/realm';
 
 function HomeScreen() {
   const navigation = useNavigation();
 
-  function RenderList({ name, createdAt }) {
+  function deleteList(id) {
+    console.log(`Pressionei o id ${id}`)
+  }
+
+  // async function saveList(list) {
+  //   const data = {
+  //     id: list.id,
+  //     name: list.name,
+  //     created_at: list.created_at,
+  //     items: list.items
+  //   }
+
+  //   const realm = await getRealm();
+
+  //   realm.write(() => {
+  //     realm.create('Lists', data)
+  //   });
+  // }
+
+  // async function addBD() {
+  //   try {
+  //     await saveList(data)
+  //   } catch(err) {
+  //     console.log(err);
+  //   }
+  // }
+
+  function RenderList({ id, name, createdAt }) {
     return (
       <TouchableOpacity
         style = { styles.btnList }
+        onPress = { () => navigation.navigate('ShoppingList', { id }) }
+        onLongPress = { () => deleteList(id) }
       >
         <Text style={ styles.txtBtnList }>{ name }</Text>
         <Text style={ styles.txtBtnCreatedAt }>{ createdAt }</Text>
@@ -37,7 +67,12 @@ function HomeScreen() {
         <FlatList
           style = { styles.flatList }
           data = { data }
-          renderItem = { ({ item }) => <RenderList name = { item.name } createdAt = { item.createdAt } /> }
+          renderItem = { ({ item }) => <RenderList 
+            id = { item.id }
+            name = { item.name }
+            createdAt = { item.createdAt }
+          /> }
+          // keyExtractor = { data => String(data.id) }
         />
       </View>
 
