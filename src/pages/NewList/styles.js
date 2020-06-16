@@ -132,7 +132,7 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     color: '#fff',
     alignSelf: 'center',
-  },
+  }, 
 
   btnCalcTotal: {
     marginTop: 10,

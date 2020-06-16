@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import HomeScreen from './pages/Home';
 import ShoppingList from './pages/ShoppingList';
+import NewList from './pages/NewList';
 
 const AppStack = createStackNavigator();
 
@@ -24,6 +25,11 @@ function Routes() {
         <AppStack.Screen
           name = "ShoppingList"
           component = { ShoppingList }
+        />
+
+        <AppStack.Screen
+          name = "NewList"
+          component = { NewList }
         />
       </AppStack.Navigator>
     </NavigationContainer>

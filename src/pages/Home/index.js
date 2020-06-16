@@ -1,6 +1,6 @@
 import React from 'react';
-import { useNavigation } from '@react-navigation/native';
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { useNavigation, useState } from '@react-navigation/native';
+import { View, Text, TouchableOpacity, FlatList, SafeAreaView, Modal } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import styles from './styles';
@@ -10,43 +10,15 @@ import getRealm from '../../services/realm';
 function HomeScreen() {
   const navigation = useNavigation();
 
-  function deleteList(id) {
-    console.log(`Pressionei o id ${id}`)
-  }
-
-  // async function saveList(list) {
-  //   const data = {
-  //     id: list.id,
-  //     name: list.name,
-  //     created_at: list.created_at,
-  //     items: list.items
-  //   }
-
-  //   const realm = await getRealm();
-
-  //   realm.write(() => {
-  //     realm.create('Lists', data)
-  //   });
-  // }
-
-  // async function addBD() {
-  //   try {
-  //     await saveList(data)
-  //   } catch(err) {
-  //     console.log(err);
-  //   }
-  // }
-
   function RenderList({ id, name, createdAt }) {
     return (
-      <TouchableOpacity
-        style = { styles.btnList }
-        onPress = { () => navigation.navigate('ShoppingList', { id }) }
-        onLongPress = { () => deleteList(id) }
-      >
-        <Text style={ styles.txtBtnList }>{ name }</Text>
-        <Text style={ styles.txtBtnCreatedAt }>{ createdAt }</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style = { styles.btnList }
+          onPress = { () => navigation.navigate('ShoppingList', { id }) }
+          >
+          <Text style={ styles.txtBtnList }>{ name }</Text>
+          <Text style={ styles.txtBtnCreatedAt }>{ createdAt }</Text>
+        </TouchableOpacity>
     );
   }
 
@@ -63,7 +35,7 @@ function HomeScreen() {
         <Text style={ styles.txtCreatedAt }>Criada em</Text>
       </View>
 
-      <View style={ styles.viewLists }>
+      <SafeAreaView style={ styles.viewLists }>
         <FlatList
           style = { styles.flatList }
           data = { data }
@@ -72,13 +44,14 @@ function HomeScreen() {
             name = { item.name }
             createdAt = { item.createdAt }
           /> }
-          // keyExtractor = { data => String(data.id) }
+          showsVerticalScrollIndicator={ false }
+          keyExtractor = { (item, index) => index.toString() }
         />
-      </View>
+      </SafeAreaView>
 
       <TouchableOpacity
         style = { styles.btnNewList }
-        onPress = { () => navigation.navigate('ShoppingList') }
+        onPress = { () => navigation.navigate('NewList') }
       >
         <Text style={ styles.txtBtn }>Nova Lista</Text>
       </TouchableOpacity>

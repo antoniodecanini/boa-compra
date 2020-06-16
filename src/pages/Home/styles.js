@@ -42,7 +42,7 @@ export default StyleSheet.create({
   },
   
   viewLists: {
-    marginTop: 0,
+    flex: 0.98,
   },
 
   flatList: {

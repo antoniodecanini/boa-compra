@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import { View, Text, TouchableOpacity, TextInput, FlatList, SafeAreaView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { View, Text, TouchableOpacity, TextInput, FlatList, SafeAreaView, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 import styles from './styles';
-import data from '../../assets/data.json';
 
-function ShoppingList() {
+function NewList() {
   const navigation = useNavigation();
-  const route = useRoute();
-
-  const listId = route.params.id;
-
+  
   const [listName, onChangeListName] = React.useState('');
   const [list, onChangeList] = React.useState([]);
   const [newItem, onChangeNewItem] = React.useState('');
@@ -20,18 +16,7 @@ function ShoppingList() {
   const [amount, onChangeAmount] = React.useState('');
   const [price, onChangePrice] = React.useState('');
 
-  function handleAdd() {
-    if(newItem.trim()) {
-      onChangeList([...list, {
-        item: newItem,
-        amount: amount,
-        price: price
-      }]);
-    }
-    onChangeNewItem('');
-  }
-
-  function RenderItem({ item, amount, price }) {
+  function RenderList({item, amount, price, id}) {
     return (
       <View style={styles.vwItemList}>
         <TextInput
@@ -43,7 +28,7 @@ function ShoppingList() {
 
         <TextInput
           style = {[ styles.input, styles.qtdField ]}
-          onChangeText = { text => onChangeQtd(text) }
+          onChangeText = { text => onChangeAmount(text) }
           value = { amount }
           keyboardType = "decimal-pad"
           placeholder = "Qtd"
@@ -59,6 +44,7 @@ function ShoppingList() {
 
         <TouchableOpacity
           style = { styles.btnRemove }
+          onPress = { () => handleDel(id) }
         >
           <Icon
             style = { styles.iconRemove }
@@ -68,6 +54,54 @@ function ShoppingList() {
           />
         </TouchableOpacity>
       </View>
+    );
+  }
+
+  let itemId;
+  function handleAdd() {    
+    if(newItem.trim()) {
+      itemId = list.length + 1
+
+      onChangeList([...list, {
+        id: itemId,
+        item: newItem,
+        amount: amount,
+        price: price
+      }]);
+    }
+    onChangeNewItem('');
+  }
+
+  function handleDel(id) {
+    onChangeList((prevList) => {
+      return prevList.filter(list => list.id != id);
+    });
+  }
+
+  function handleSave() {
+    if(listName){
+      console.log({
+        listName: listName,
+        items: list
+      });
+    } else {
+      return Alert.alert(
+        'Erro ao salvar!',
+        'Favor preencher o nome da lista',
+        [
+          { text: "OK", onPress: () => {} }
+        ],
+        { cancelable: false }
+      );
+    }
+
+    return Alert.alert(
+      'Lista salva com sucesso',
+      'A lista foi salva, você pode acessa-la na tela principal',
+      [
+        { text: "OK", onPress: () => navigation.goBack() }
+      ],
+      { cancelable: false }
     );
   }
 
@@ -94,15 +128,15 @@ function ShoppingList() {
 
           <TextInput 
             style = { styles.listName }
-            onChangeText = { text => onChangeItem(text) }
+            onChangeText = { text => onChangeListName(text) }
+            value = { listName }
             placeholder = "Digite o nome da lista"
-            value = { data[listId].name }
           />
         </View>
 
         <TouchableOpacity
           style = { styles.btnSaveList }
-          onPress = { () => console.log(list) }
+          onPress = { () => handleSave() }
         >
           <Text style={ styles.txtBtnSaveList }>Salvar lista</Text>
         </TouchableOpacity>
@@ -119,10 +153,17 @@ function ShoppingList() {
           style = { styles.flatList }
         >
           <FlatList
-            data = { data[listId].items }
-            renderItem = { ({ item }) => <RenderItem item={item.itemName} amount={item.amount} price={item.price} /> }
+            data = { list }
+            renderItem = { ({ item }) => 
+              <RenderList
+                item={ item.item }
+                amount={ item.amount } 
+                price={ item.price }
+                id = { item.id }
+              />
+            }
             showsVerticalScrollIndicator={ false }
-            keyExtractor = { (item, index) => index.toString() }
+            keyExtractor = { (item) => item.id }
           />
         </SafeAreaView>
       </View>
@@ -159,4 +200,4 @@ function ShoppingList() {
   );
 }
 
-export default ShoppingList;
+export default NewList;
