@@ -46,6 +46,7 @@ export default StyleSheet.create({
     padding: 5,
     backgroundColor: 'rgba(107, 205, 237, 0.9)',
     borderRadius: 10,
+    justifyContent: 'center',
   },
 
   txtBtnSaveList: {
@@ -156,7 +157,17 @@ export default StyleSheet.create({
   txtInputItem: {
     color: '#fff',
     fontSize: 25,
-    width: '85%',
+    width: '70%',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 10,
+    padding: 5,
+    paddingLeft: 7,
+  },
+
+  txtInputQtd: {
+    color: '#fff',
+    fontSize: 25,
+    width: '17%',
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
     borderRadius: 10,
     padding: 5,

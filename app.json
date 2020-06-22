@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "market-calc",
-    "slug": "market-calc",
+    "name": "boa-compra",
+    "slug": "boa-compra",
     "platforms": [
       "ios",
       "android",

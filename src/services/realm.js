@@ -1,13 +1,12 @@
-// import Realm from 'realm';
+import Realm from 'realm';
 
-// import ListsSchema from '../database/schemas/ListsSchema';
-// import ItemsSchema from '../database/schemas/ItemsSchema';
+import ListSchema from '../database/schemas/ListSchema';
+import ItemSchema from '../database/schemas/ItemSchema';
 
-// export default function getRealm() {
-//   return Realm.open({
-//     schema: [
-//       ListsSchema,
-//       ItemsSchema
-//     ]
-//   });
-// }
+function getRealm() {
+  return Realm.open({
+    schema: [ListSchema, ItemSchema]
+  });
+}
+
+export default getRealm;
